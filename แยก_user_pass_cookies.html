@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>PTTXD SHOP</title>
+  <link rel="stylesheet" href="cookies.css">
+</head>
+<body>
+  <div class="shell">
+    <div class="top-row">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>PTTXD SHOP · SPLITTER</span>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <div class="stat-chip">
+          <span class="stat-dot"></span>
+          <span><span id="lineCount">0</span> LINES</span>
+        </div>
+        <!-- ปุ่มกลับหน้าแรก -->
+        <button class="btn btn-secondary" onclick="goHome()">
+          <span class="btn-icon">←</span>
+          <span>กลับหน้าแรก</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <div class="header">
+          <div class="title-wrap">
+            <h1>
+              แยก <span class="highlight">username:password:cookie</span>
+            </h1>
+            <p class="subtitle">
+              วางคอมโบรูปแบบ <strong>username:password:cookie</strong> ด้านล่าง ระบบจะช่วยแยกเป็น
+              <strong>username:password</strong>, เฉพาะ <strong>cookie</strong> และแบบเต็มกลับมาให้
+            </p>
+          </div>
+        </div>
+
+        <label for="input" class="section-label">Input</label>
+        <textarea id="input" placeholder="ใส่ข้อมูลทีละบรรทัด: username:password:cookie"></textarea>
+
+        <div class="buttons">
+          <button class="btn btn-primary" id="splitBtn">
+            <span class="btn-icon">✨</span>
+            <span>แยกข้อมูล</span>
+          </button>
+          <button class="btn btn-secondary" id="clearBtn">
+            <span class="btn-icon">🧹</span>
+            <span>ล้างทั้งหมด</span>
+          </button>
+        </div>
+
+        <div class="columns">
+          <!-- Username : Password -->
+          <div class="card sub-card">
+            <div class="card-header">
+              <span>Username : Password</span>
+              <button class="copy-btn" data-copy="up">คัดลอก</button>
+            </div>
+            <textarea id="outUP" readonly></textarea>
+          </div>
+
+          <!-- Cookie -->
+          <div class="card sub-card">
+            <div class="card-header">
+              <span>Cookie</span>
+              <button class="copy-btn" data-copy="cookie">คัดลอก</button>
+            </div>
+            <textarea id="outCookie" readonly></textarea>
+          </div>
+
+          <!-- Username : Password : Cookie -->
+          <div class="card sub-card">
+            <div class="card-header">
+              <span>Username : Password : Cookie</span>
+              <button class="copy-btn" data-copy="all">คัดลอก</button>
+            </div>
+            <textarea id="outAll" readonly></textarea>
+          </div>
+        </div>
+
+        <!-- เครดิต PTTXDSHOP -->
+        <div style="margin-top:10px; font-size:11px; color:#9ca3af; text-align:right;">
+          Powered by <strong>PTTXDSHOP</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById("input");
+    const outUP = document.getElementById("outUP");
+    const outCookie = document.getElementById("outCookie");
+    const outAll = document.getElementById("outAll");
+    const lineCount = document.getElementById("lineCount");
+
+    function splitText() {
+      const raw = input.value.trim();
+      if (!raw) {
+        outUP.value = "";
+        outCookie.value = "";
+        outAll.value = "";
+        lineCount.textContent = "0";
+        return;
+      }
+
+      const lines = raw.split(/\r?\n/);
+      const up = [];
+      const cookies = [];
+      const all = [];
+
+      for (let line of lines) {
+        line = line.trim();
+        if (!line) continue;
+
+        const parts = line.split(":");
+        const username = parts[0] || "";
+        const password = parts[1] || "";
+        const cookie = parts.slice(2).join(":"); // รองรับ cookie มี ':' ข้างใน
+
+        if (username || password || cookie) {
+          const upLine = [username, password].filter(Boolean).join(":");
+          up.push(upLine);
+
+          cookies.push(cookie);
+
+          const allLine = [username, password, cookie].filter(Boolean).join(":");
+          all.push(allLine);
+        }
+      }
+
+      outUP.value = up.join("\n");
+      outCookie.value = cookies.join("\n");
+      outAll.value = all.join("\n");
+      lineCount.textContent = all.length.toString();
+    }
+
+    document.getElementById("splitBtn").addEventListener("click", splitText);
+    input.addEventListener("input", splitText);
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      input.value = "";
+      splitText();
+    });
+
+    document.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        let target;
+        if (btn.dataset.copy === "up") target = outUP;
+        else if (btn.dataset.copy === "cookie") target = outCookie;
+        else target = outAll;
+
+        target.select();
+        document.execCommand("copy");
+        const original = btn.textContent;
+        btn.textContent = "คัดลอกแล้ว";
+        setTimeout(() => (btn.textContent = original), 900);
+      });
+    });
+
+    // ฟังก์ชันกลับหน้าแรก
+    function goHome() {
+      window.location.href = "index.html"; // ถ้าชื่อไฟล์หน้าแรกไม่ใช่ index.html ก็เปลี่ยนตรงนี้
+    }
+    document.addEventListener('keydown', (e) => {
+  if (e.key === 'F12' || 
+     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
+    e.preventDefault();
+  }
+});
+
+  </script>
+</body>
+</html>

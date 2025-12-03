@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ดึงบรรทัด user:pass:cookies ตาม user:pass (หลายชุด)</title>
+  <link rel="stylesheet" href="search_cookies.css">
+</head>
+<body>
+
+  <div class="shell">
+    <div class="top-row">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span>SEARCH COMBO IN USER:PASS:COOKIES</span>
+      </div>
+
+      <!-- ปุ่มย้อนกลับไปหน้า index -->
+      <div class="nav-pills">
+        <button class="nav-pill" onclick="goTo('index.html')">
+          <span class="nav-pill-dot"></span>
+          <span>← กลับไปหน้าแรก</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+
+        <div class="header">
+          <div class="title-wrap">
+            <h2>
+              ดึงบรรทัด <span class="hl-blue">user:pass:cookis</span>
+              จาก <span class="hl-green">user:pass</span> ที่กำหนด
+              <span class="title-pill">หาได้หลายชุดในครั้งเดียว</span>
+            </h2>
+            <p class="subtitle">
+              ใส่ <strong>user:pass</strong> หลายชุด (ขึ้นบรรทัดใหม่ หรือคั่นด้วย <strong>,</strong>) แล้ววางลิสต์
+              <strong>user:pass:cookis</strong> ด้านล่าง
+              ระบบจะเทียบจากส่วน <strong>user:pass</strong> และดึงทั้งบรรทัดกลับมาให้
+            </p>
+          </div>
+          <div class="stat-chip">
+            <span class="stat-dot"></span>
+            <span>เทียบ prefix user:pass แบบเร็ว</span>
+          </div>
+        </div>
+
+        <div class="grid">
+          <!-- LEFT -->
+          <div>
+            <div class="section-label">Input</div>
+
+            <label for="searchUser">user:pass ที่ต้องการหา</label>
+            <textarea
+              id="searchUser"
+              rows="4"
+              placeholder="เช่น
+XxJamesCodexX37:Generated$7055159
+Giga_Her049:Generated$5276257, Silv3rNovaZoom:Generated$1345525"></textarea>
+
+            <label for="listInput" class="mt-10">ลิสต์ user:pass:cookis (ทีละบรรทัด)</label>
+            <textarea id="listInput" rows="8"></textarea>
+
+            <div class="buttons">
+              <button class="btn-primary" onclick="findUserPass()">
+                <span class="btn-icon">🔍</span>
+                <span>ดึงบรรทัดที่ตรง</span>
+              </button>
+              <button class="btn-secondary" onclick="clearAll()">
+                <span class="btn-icon">🧹</span>
+                <span>ล้างทั้งหมด</span>
+              </button>
+            </div>
+
+            <div class="small-note">
+              * ช่องด้านล่างรองรับ <code>user:pass:cookis</code> ถึงจะมี <code>:</code> อยู่ใน cookis ก็ไม่เป็นไร (เทียบแค่ 2 ช่องแรก)
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div>
+            <div class="section-label">Output</div>
+            <div class="output-header">
+              <div>ผลลัพธ์บรรทัดที่พบ</div>
+              <div class="output-tools">
+                <span class="pill-soft" id="matchCount">0 บรรทัด</span>
+                <button class="small-btn" onclick="copyResult(this)">
+                  <span class="btn-icon">📋</span>
+                  <span>คัดลอก</span>
+                </button>
+              </div>
+            </div>
+            <textarea id="resultOutput" rows="8" readonly></textarea>
+            <div class="unmatched" id="unmatchedInfo"></div>
+          </div>
+        </div>
+
+        <!-- เครดิต -->
+        <div style="margin-top:10px; font-size:11px; color:#9ca3af; text-align:right;">
+          Powered by <strong>PTTXDSHOP</strong>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function findUserPass() {
+      const rawTargets = document.getElementById('searchUser').value;
+
+      // targetCombos = user:pass หลายชุด
+      const targetCombos = rawTargets
+        .split(/\r?\n|,/)
+        .map(c => c.trim())
+        .filter(c => c !== '');
+
+      const text = document.getElementById('listInput').value;
+      const lines = text
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(l => l !== '');
+
+      // เซ็ตเก็บ user:pass (ไม่รวม cookis)
+      const targetSet = new Set(targetCombos);
+      const matches = [];
+
+      lines.forEach(line => {
+        const raw = line.trim();
+        if (!raw) return;
+
+        // ดึงแค่ user:pass จากบรรทัด user:pass:cookis
+        const parts = raw.split(':');
+        if (parts.length < 2) return;
+
+        const combo = parts[0] + ':' + parts[1];
+
+        if (targetSet.has(combo)) {
+          matches.push(raw); // เก็บทั้งบรรทัด user:pass:cookis
+        }
+      });
+
+      const resultBox = document.getElementById('resultOutput');
+      const matchCount = document.getElementById('matchCount');
+      const unmatchedInfo = document.getElementById('unmatchedInfo');
+
+      if (matches.length) {
+        resultBox.value = matches.join('\n');
+        matchCount.textContent = matches.length + ' บรรทัด';
+      } else {
+        resultBox.value = '';
+        matchCount.textContent = '0 บรรทัด';
+      }
+
+      if (targetCombos.length) {
+        // สร้างชุด user:pass ที่ถูกพบจาก matches
+        const foundCombos = new Set(
+          matches.map(line => {
+            const p = line.split(':');
+            if (p.length < 2) return '';
+            return p[0] + ':' + p[1];
+          }).filter(Boolean)
+        );
+
+        const notFound = targetCombos.filter(c => !foundCombos.has(c));
+
+        if (notFound.length) {
+          unmatchedInfo.textContent =
+            'ไม่พบ combo เหล่านี้ในลิสต์: ' + notFound.join(', ');
+        } else {
+          unmatchedInfo.textContent = '';
+        }
+      } else {
+        unmatchedInfo.textContent = '';
+      }
+    }
+
+    function clearAll() {
+      document.getElementById('searchUser').value = '';
+      document.getElementById('listInput').value = '';
+      document.getElementById('resultOutput').value = '';
+      document.getElementById('matchCount').textContent = '0 บรรทัด';
+      document.getElementById('unmatchedInfo').textContent = '';
+    }
+
+    function copyResult(btn) {
+      const out = document.getElementById('resultOutput');
+      const text = out.value;
+
+      if (!text) {
+        animateCopyButton(btn, '⚠️ ไม่มีข้อมูล', true);
+        return;
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            animateCopyButton(btn, '✅ คัดลอกแล้ว', false);
+          })
+          .catch(() => {
+            fallbackCopy(out, btn);
+          });
+      } else {
+        fallbackCopy(out, btn);
+      }
+    }
+
+    function fallbackCopy(textarea, btn) {
+      textarea.select();
+      textarea.setSelectionRange(0, 999999);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      animateCopyButton(btn, '✅ คัดลอกแล้ว', false);
+    }
+
+    function animateCopyButton(btn, label, isWarn) {
+      const original = btn.innerHTML;
+      btn.innerHTML = label;
+      btn.style.opacity = isWarn ? '0.9' : '0.95';
+
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.style.opacity = '1';
+      }, 1200);
+    }
+
+    function goTo(path) {
+      window.location.href = path;
+    }
+    document.addEventListener('keydown', (e) => {
+  if (e.key === 'F12' || 
+     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
+    e.preventDefault();
+  }
+});
+
+  </script>
+
+</body>
+</html>
