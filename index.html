@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>PTTXD | Index</title>
-    <link rel="stylesheet" href="index.css">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://img5.pic.in.th/file/secure-sv1/1000003790-removebg-preview.png"/>
+  <meta charset="UTF-8" />
+  <title>TheForge | Tools Hub</title>
+  <link rel="stylesheet" href="index.css" />
+  <link rel="icon" type="image/png" sizes="16x16"
+        href="https://img5.pic.in.th/file/secure-sv1/1000003790-removebg-preview.png"/>
 </head>
 <body>
 
 <div class="shell">
   <div class="badge">
     <span class="badge-dot"></span>
-    <span>PTTXD SHOP</span>
+    <span>THE FORGE</span>
   </div>
 
   <div class="card">
@@ -19,12 +20,14 @@
       <div class="header">
         <div class="title-wrap">
           <h1>
-            เลือกเครื่องมือจัดการ <span style="color:#38bdf8;">user:pass</span> / <span style="color:#a855f7;">cookies</span>
+            เลือกเครื่องมือจัดการข้อมูลแบบ <span style="color:#38bdf8;">คอลอน</span>
             <span class="title-pill">ศูนย์รวมหน้าแยก / ค้นหา</span>
           </h1>
           <p class="subtitle">
-            เลือกหน้าใช้งานที่ต้องการ: แยก <strong>user:pass:cookis → user:pass</strong> หรือ
-            ค้นหา <strong>user:pass:cookis</strong> จาก <strong>user:pass</strong> ที่มีอยู่
+            เลือกหน้าใช้งานที่ต้องการ:
+            แยก <strong>field1:field2:field3 → field1:field2</strong> หรือ
+            ค้นหา <strong>field1:field2:field3</strong> จาก <strong>field1:field2</strong>
+            ที่มีอยู่
           </p>
         </div>
         <div class="stat-chip">
@@ -34,19 +37,20 @@
       </div>
 
       <div class="grid">
-        <!-- Card 1: แยก user:pass:cookies -->
-        <div class="tool-card" onclick="goTo('แยก_user_pass_cookies.html')">
+        <!-- Card 1: Splitter -->
+        <div class="tool-card" onclick="goTo('split_3_to_2.html')">
           <div class="tool-title">
             <span class="icon">🧩</span>
-            <span>แยก user:pass:cookis → user:pass</span>
+            <span>แยก field1:field2:field3 → field1:field2</span>
             <span class="tool-badge">Splitter</span>
           </div>
           <div class="tool-desc">
-            วางลิสต์ <strong>user:pass:cookis</strong> ยาว ๆ แล้วให้ระบบช่วยแยกเอาเฉพาะ
-            <strong>user:pass</strong> ออกมาเป็นชุดสะอาด ๆ พร้อมก๊อปไปใช้ต่อได้ทันที
+            วางลิสต์ข้อมูลรูปแบบ <strong>field1:field2:field3</strong> ยาว ๆ
+            แล้วให้ระบบช่วยแยกเอาเฉพาะ <strong>field1:field2</strong>
+            ออกมาเป็นชุดสะอาด ๆ พร้อมก๊อปไปใช้ต่อได้
           </div>
           <div class="tool-footer">
-            <span class="pill-soft">เหมาะกับจัดระเบียบ combo เดิม</span>
+            <span class="pill-soft">เหมาะกับจัดระเบียบข้อมูล 3 ช่อง</span>
             <button class="enter-btn" type="button">
               <span>เข้าใช้งาน</span>
               <span class="enter-btn-icon">➜</span>
@@ -54,19 +58,20 @@
           </div>
         </div>
 
-        <!-- Card 2: ค้นหา cookies -->
-        <div class="tool-card" onclick="goTo('ค้าหาcookies.html')">
+        <!-- Card 2: Lookup -->
+        <div class="tool-card" onclick="goTo('lookup_3_from_2.html')">
           <div class="tool-title">
             <span class="icon">🔍</span>
-            <span>ค้นหา user:pass:cookis จาก user:pass</span>
+            <span>ค้นหา field1:field2:field3 จาก field1:field2</span>
             <span class="tool-badge">Lookup</span>
           </div>
           <div class="tool-desc">
-            ใส่ชุด <strong>user:pass</strong> ที่ต้องการ แล้วให้ระบบไล่ค้นจากลิสต์
-            <strong>user:pass:cookis</strong> ขนาดใหญ่ ดึงเฉพาะบรรทัดที่ตรงกลับมาให้
+            ใส่ชุด <strong>field1:field2</strong> ที่ต้องการ
+            แล้วให้ระบบไล่ค้นจากลิสต์ <strong>field1:field2:field3</strong>
+            ขนาดใหญ่ ดึงเฉพาะบรรทัดที่ตรงกลับมาให้
           </div>
           <div class="tool-footer">
-            <span class="pill-soft">เหมาะกับดึง cookies เฉพาะไอดี</span>
+            <span class="pill-soft">เหมาะกับดึงข้อมูลช่องที่ 3 เฉพาะรายการ</span>
             <button class="enter-btn" type="button">
               <span>เข้าใช้งาน</span>
               <span class="enter-btn-icon">➜</span>
@@ -83,13 +88,15 @@
   function goTo(path) {
     window.location.href = path;
   }
-  document.addEventListener('keydown', (e) => {
-  if (e.key === 'F12' || 
-     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
-    e.preventDefault();
-  }
-});
 
+  // หมายเหตุ: การปิด F12/DevTools ไม่ได้ช่วยความปลอดภัยจริง
+  // และอาจทำให้ debug ลำบาก คุณสามารถลบส่วนนี้ได้ถ้าต้องการ
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'F12' ||
+      (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
+      e.preventDefault();
+    }
+  });
 </script>
 
 </body>
