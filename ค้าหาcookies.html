@@ -2,28 +2,44 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>ดึงบรรทัด user:pass:cookies ตาม user:pass (หลายชุด)</title>
-   <link rel="icon" type="image/png" sizes="16x16" href="https://img5.pic.in.th/file/secure-sv1/1000003790-removebg-preview.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PM Stock · ค้นหา Cookies</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="pm.png" />
   <link rel="stylesheet" href="search_cookies.css">
 </head>
 <body>
 
+  <!-- ==================== ฉากหลังนีออน ==================== -->
+  <div class="bg-scene">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="grid-plane"></div>
+    <div class="vignette"></div>
+    <canvas id="stars"></canvas>
+  </div>
+
   <div class="shell">
+
+    <!-- แถวบน -->
     <div class="top-row">
-      <div class="badge">
-        <span class="badge-dot"></span>
-        <span>SEARCH COMBO IN USER:PASS:COOKIES</span>
+      <div class="topbar">
+        <div class="logo-gem"><img src="pm.png" alt="PM Stock" /></div>
+        <div class="brand-copy">
+          <span class="brand-name">PM&nbsp;<b>Stock</b>&nbsp;·&nbsp;LOOKUP</span>
+          <span class="brand-sub">ค้น combo ภายในเสี้ยววินาที</span>
+        </div>
       </div>
 
-      <!-- ปุ่มย้อนกลับไปหน้า index -->
       <div class="nav-pills">
-        <button class="nav-pill" onclick="goTo('index.html')">
+        <button class="nav-pill" onclick="goTo('index.html')" type="button">
           <span class="nav-pill-dot"></span>
           <span>← กลับไปหน้าแรก</span>
         </button>
       </div>
     </div>
 
+    <!-- การ์ดหลัก -->
     <div class="card">
       <div class="card-inner">
 
@@ -35,21 +51,22 @@
               <span class="title-pill">หาได้หลายชุดในครั้งเดียว</span>
             </h2>
             <p class="subtitle">
-              ใส่ <strong>user:pass</strong> หลายชุด (ขึ้นบรรทัดใหม่ หรือคั่นด้วย <strong>,</strong>) แล้ววางลิสต์
-              <strong>user:pass:cookis</strong> ด้านล่าง
+              ใส่ <strong>user:pass</strong> หลายชุด (ขึ้นบรรทัดใหม่ หรือคั่นด้วย <strong>,</strong>)
+              แล้ววางลิสต์ <strong>user:pass:cookis</strong> ด้านล่าง
               ระบบจะเทียบจากส่วน <strong>user:pass</strong> และดึงทั้งบรรทัดกลับมาให้
             </p>
           </div>
           <div class="stat-chip">
-            <span class="stat-dot"></span>
+            <i class="stat-dot"></i>
             <span>เทียบ prefix user:pass แบบเร็ว</span>
           </div>
         </div>
 
         <div class="grid">
+
           <!-- LEFT -->
           <div>
-            <div class="section-label">Input</div>
+            <div class="section-label">⚡ Input</div>
 
             <label for="searchUser">user:pass ที่ต้องการหา</label>
             <textarea
@@ -63,32 +80,33 @@ Giga_Her049:Generated$5276257, Silv3rNovaZoom:Generated$1345525"></textarea>
             <textarea id="listInput" rows="8" placeholder="เช่น
 LaylaChase53:Generated$5729642:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_CAEaAhADIhwKBGR1aWQSFDE1NzIxMjk0OTY2MDk2NTM4ODE0KAM.7gNCXx3Murx97nAtd6oYbQrxHOnSQmhwbhvtC2-vDtKXsvB6luNO6yBXkKNHdRqCZfs9WLM36okBPC9D5mvatY9LHPfMWClDa67t8061RzeCpAqa9XA9xUogSwCs4lB1GQZgL_pGhGRYrfTXaRO6wI7MwjC4ecCJDsIu3z0BcatT7MlovQtS8QJANUHCJ35hgTwSkCFoEFws8ZAHELyH4ViEBF49z6_Z6PTRTgF6nhkYGFryRafjn9IfgSgS5y0TCtrb3zBWGAGq5uiu0JYeZfNopig
 
-Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_CAEaAhADIhwKBGR1aWQSFDE0OTgwMjQ2Nzc5NDcwNzU2Mjg4KAM.xGAk-qLT8bIafndV0ZyJjUkJ8t8fDgWpYJfmPB8e5Flv8QEk4aDDdRAxUpbve6sCpQdMT2IZa8ReOZ-QZZof1-U_Vpn94mVc9auY97eHEQIIGP1U16y26RHxdifzqiiBUfpsTf4R41_Yx4SwpDh2pX4SXvamQe1Roi9Dp0Cq02D3kMhtRfnFdu7MdLCReIE-W-Uo8yR-schcyTXKoGTIAs2pfa15lPr_LMlDnHNM3M3C1kwxVOa5JUqU6mdWNzJ8L9uG-sswz8j9oSCPALS3CdtPHgc"></textarea>
+Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_CAEaAhADIhwKBGR1aWQSFDE0OTgwMjQ2Nzc3NDcwNzU2Mjg4KAM.xGAk-qLT8bIafndV0ZyJjUkJ8t8fDgWpYJfmPB8e5Flv8QEk4aDDdRAxUpbve6sCpQdMT2IZa8ReOZ-QZZof1-U_Vpn94mVc9auY97eHEQIIGP1U16y26RHxdifzqiiBUfpsTf4R41_Yx4SwpDh2pX4SXvamQe1Roi9Dp0Cq02D3kMhtRfnFdu7MdLCReIE-W-Uo8yR-schcyTXKoGTIAs2pfa15lPr_LMlDnHNM3M3C1kwxVOa5JUqU6mdWNzJ8L9uG-sswz8j9oSCPALS3CdtPHgc"></textarea>
 
             <div class="buttons">
-              <button class="btn-primary" onclick="findUserPass()">
+              <button class="btn btn-primary" onclick="findUserPass()" type="button">
                 <span class="btn-icon">🔍</span>
                 <span>ดึงบรรทัดที่ตรง</span>
               </button>
-              <button class="btn-secondary" onclick="clearAll()">
+              <button class="btn btn-secondary" onclick="clearAll()" type="button">
                 <span class="btn-icon">🧹</span>
                 <span>ล้างทั้งหมด</span>
               </button>
             </div>
 
             <div class="small-note">
-              * ช่องด้านล่างรองรับ <code>user:pass:cookis</code> ถึงจะมี <code>:</code> อยู่ใน cookis ก็ไม่เป็นไร (เทียบแค่ 2 ช่องแรก)
+              * ช่องด้านล่างรองรับ <code>user:pass:cookis</code> ถึงจะมี <code>:</code> อยู่ใน cookis ก็ไม่เป็นไร
+              (เทียบแค่ 2 ช่องแรก)
             </div>
           </div>
 
           <!-- RIGHT -->
           <div>
-            <div class="section-label">Output</div>
+            <div class="section-label">📤 Output</div>
             <div class="output-header">
               <div>ผลลัพธ์บรรทัดที่พบ</div>
               <div class="output-tools">
                 <span class="pill-soft" id="matchCount">0 บรรทัด</span>
-                <button class="small-btn" onclick="copyResult(this)">
+                <button class="small-btn" onclick="copyResult(this)" type="button">
                   <span class="btn-icon">📋</span>
                   <span>คัดลอก</span>
                 </button>
@@ -97,11 +115,11 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
             <textarea id="resultOutput" rows="8" readonly></textarea>
             <div class="unmatched" id="unmatchedInfo"></div>
           </div>
+
         </div>
 
-        <!-- เครดิต -->
-        <div style="margin-top:10px; font-size:11px; color:#9ca3af; text-align:right;">
-          Powered by <strong>PTTXDSHOP</strong>
+        <div class="credit">
+          Powered by <strong>PM Stock</strong>
         </div>
 
       </div>
@@ -109,10 +127,187 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
   </div>
 
   <script>
+    // ============================================================
+    // ลูกเล่น & เอฟเฟกต์ (ใช้ร่วมทุกหน้า)
+    // ============================================================
+    (function () {
+      var TAIL = ['#4dd8ff', '#ff5fd2', '#ffd166', '#a78bfa', '#34d399'];
+
+      function toastFx(msg, type) {
+        var wrap = document.getElementById('toast');
+        if (!wrap) {
+          wrap = document.createElement('div');
+          wrap.id = 'toast';
+          document.body.appendChild(wrap);
+        }
+        var t = document.createElement('div');
+        t.className = 'toast-item ' + (type || 'info');
+        t.textContent = msg;
+        wrap.appendChild(t);
+        setTimeout(function () {
+          t.classList.add('out');
+          setTimeout(function () { t.remove(); }, 350);
+        }, 1900);
+      }
+
+      function confettiFx(x, y) {
+        var h = document.createElement('div');
+        h.className = 'confetti-wrap';
+        h.style.cssText = 'left:' + x + 'px;top:' + y + 'px;';
+        document.body.appendChild(h);
+        for (var i = 0; i < 28; i++) {
+          var p = document.createElement('i');
+          var a = Math.random() * Math.PI * 2;
+          var dist = Math.random() * 100 + 40;
+          var size = Math.random() * 6 + 4;
+          p.style.cssText =
+            '--dx:' + (Math.cos(a) * dist).toFixed(1) + 'px;' +
+            '--dy:' + (Math.sin(a) * dist + 70).toFixed(1) + 'px;' +
+            'background:' + TAIL[(Math.random() * TAIL.length) | 0] + ';' +
+            'width:' + size.toFixed(1) + 'px;height:' + size.toFixed(1) + 'px;';
+          h.appendChild(p);
+        }
+        setTimeout(function () { h.remove(); }, 950);
+      }
+
+      window.toastFx = toastFx;
+      window.confettiFx = confettiFx;
+
+      // ระลอกคลื่นตอนคลิก
+      document.addEventListener('pointerdown', function (e) {
+        var el = e.target.closest('.btn, .copy-btn, .small-btn, .nav-pill, .icon-tile');
+        if (!el) return;
+        var style = getComputedStyle(el);
+        if (style.position === 'static') el.style.position = 'relative';
+        var r = el.getBoundingClientRect();
+        var d = Math.max(r.width, r.height) * 2;
+        var span = document.createElement('span');
+        span.className = 'ripple';
+        span.style.cssText =
+          'width:' + d + 'px;height:' + d + 'px;' +
+          'left:' + (e.clientX - r.left - d / 2) + 'px;' +
+          'top:' + (e.clientY - r.top - d / 2) + 'px;';
+        el.appendChild(span);
+        setTimeout(function () { span.remove(); }, 650);
+      });
+
+      // ประกายไฟตามเมาส์
+      var lastSpark = 0;
+      document.addEventListener('pointermove', function (e) {
+        var now = performance.now();
+        if (now - lastSpark < 85) return;
+        lastSpark = now;
+        var s = document.createElement('i');
+        s.className = 'spark';
+        s.style.cssText = 'left:' + e.clientX + 'px;top:' + e.clientY + 'px;';
+        document.body.appendChild(s);
+        setTimeout(function () { s.remove(); }, 650);
+      });
+
+      // ฝุ่นเรืองแสงลอยขึ้น
+      var scene = document.querySelector('.bg-scene');
+      if (scene) {
+        var dust = document.createElement('div');
+        dust.className = 'dust';
+        scene.appendChild(dust);
+        for (var i = 0; i < 26; i++) {
+          var d = document.createElement('i');
+          var c = TAIL[(Math.random() * TAIL.length) | 0];
+          var s = (Math.random() * 6 + 3).toFixed(1);
+          d.style.cssText =
+            'left:' + (Math.random() * 100).toFixed(2) + '%;' +
+            'width:' + s + 'px;height:' + s + 'px;' +
+            'background:' + c + ';box-shadow:0 0 10px ' + c + ';' +
+            'animation-duration:' + (Math.random() * 8 + 6).toFixed(1) + 's;' +
+            'animation-delay:' + (-Math.random() * 10).toFixed(1) + 's;';
+          dust.appendChild(d);
+        }
+      }
+    })();
+
+    // ============================================================
+    // ท้องฟ้าดาวกะพริบ + ดาวตก
+    // ============================================================
+    (function () {
+      var cv = document.getElementById('stars');
+      if (!cv || !cv.getContext) return;
+      var ctx = cv.getContext('2d');
+      var COLORS = ['#7ce8ff', '#ffd1f7', '#ffffff', '#ffe9a8', '#c8b6ff'];
+      var W, H, stars = [], shooters = [], shootTimer = 0;
+
+      function hexToRgba(hex, a) {
+        var n = parseInt(hex.slice(1), 16);
+        return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+      }
+      function resize() {
+        W = cv.width = window.innerWidth;
+        H = cv.height = window.innerHeight;
+        stars = [];
+        for (var i = 0, n = Math.max(80, Math.min(180, window.innerWidth / 8)); i < n; i++) {
+          stars.push({
+            x: Math.random() * W, y: Math.random() * H,
+            r: Math.random() * 1.5 + 0.4,
+            a: Math.random() * Math.PI * 2,
+            s: Math.random() * 0.03 + 0.006,
+            c: COLORS[(Math.random() * COLORS.length) | 0]
+          });
+        }
+      }
+      function spawnShooter() {
+        var x = Math.random() * W * 0.6 + W * 0.15;
+        var y = Math.random() * H * 0.35;
+        var v = 13 + Math.random() * 9;
+        shooters.push({ x: x, y: y, vx: v, vy: v * 0.55, life: 1 });
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      (function loop() {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < stars.length; i++) {
+          var st = stars[i];
+          st.a += st.s;
+          var o = (Math.sin(st.a) + 1) / 2 * 0.9;
+          ctx.beginPath();
+          ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+          ctx.fillStyle = hexToRgba(st.c, o);
+          ctx.fill();
+        }
+        shootTimer++;
+        if (shootTimer > 320 && Math.random() < 0.65) { shootTimer = 0; spawnShooter(); }
+        for (var j = shooters.length - 1; j >= 0; j--) {
+          var sh = shooters[j];
+          sh.x += sh.vx;
+          sh.y += sh.vy;
+          sh.life -= 0.014;
+          if (sh.life <= 0 || sh.x > W + 80 || sh.y > H + 80) { shooters.splice(j, 1); continue; }
+          var len = 14;
+          var g = ctx.createLinearGradient(sh.x, sh.y, sh.x - sh.vx * len / 12, sh.y - sh.vy * len / 12);
+          g.addColorStop(0, 'rgba(255,255,255,' + sh.life + ')');
+          g.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.strokeStyle = g;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(sh.x, sh.y);
+          ctx.lineTo(sh.x - sh.vx * len / 12, sh.y - sh.vy * len / 12);
+          ctx.stroke();
+        }
+        requestAnimationFrame(loop);
+      })();
+    })();
+
+    // ============================================================
+    // ฟังก์ชันค้นหา
+    // ============================================================
+    function popCount() {
+      const mc = document.getElementById('matchCount');
+      mc.classList.remove('pop');
+      void mc.offsetWidth;
+      mc.classList.add('pop');
+    }
+
     function findUserPass() {
       const rawTargets = document.getElementById('searchUser').value;
 
-      // targetCombos = user:pass หลายชุด
       const targetCombos = rawTargets
         .split(/\r?\n|,/)
         .map(c => c.trim())
@@ -124,7 +319,6 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
         .map(l => l.trim())
         .filter(l => l !== '');
 
-      // เซ็ตเก็บ user:pass (ไม่รวม cookis)
       const targetSet = new Set(targetCombos);
       const matches = [];
 
@@ -132,14 +326,13 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
         const raw = line.trim();
         if (!raw) return;
 
-        // ดึงแค่ user:pass จากบรรทัด user:pass:cookis
         const parts = raw.split(':');
         if (parts.length < 2) return;
 
         const combo = parts[0] + ':' + parts[1];
 
         if (targetSet.has(combo)) {
-          matches.push(raw); // เก็บทั้งบรรทัด user:pass:cookis
+          matches.push(raw);
         }
       });
 
@@ -150,13 +343,14 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
       if (matches.length) {
         resultBox.value = matches.join('\n');
         matchCount.textContent = matches.length + ' บรรทัด';
+        matchCount.classList.add('green');
       } else {
         resultBox.value = '';
         matchCount.textContent = '0 บรรทัด';
+        matchCount.classList.remove('green');
       }
 
       if (targetCombos.length) {
-        // สร้างชุด user:pass ที่ถูกพบจาก matches
         const foundCombos = new Set(
           matches.map(line => {
             const p = line.split(':');
@@ -168,13 +362,21 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
         const notFound = targetCombos.filter(c => !foundCombos.has(c));
 
         if (notFound.length) {
-          unmatchedInfo.textContent =
-            'ไม่พบ combo เหล่านี้ในลิสต์: ' + notFound.join(', ');
+          unmatchedInfo.textContent = 'ไม่พบ combo เหล่านี้ในลิสต์: ' + notFound.join(', ');
         } else {
           unmatchedInfo.textContent = '';
         }
       } else {
         unmatchedInfo.textContent = '';
+      }
+
+      if (!rawTargets.trim() && !text.trim()) {
+        if (window.toastFx) window.toastFx('⚠️ ยังไม่มีข้อมูลให้ค้นหา', 'warn');
+      } else if (matches.length) {
+        popCount();
+        if (window.toastFx) window.toastFx('🔍 เจอ ' + matches.length + ' บรรทัด!', 'success');
+      } else if (targetCombos.length) {
+        if (window.toastFx) window.toastFx('😢 ไม่พบ combo ที่ตรงเลย', 'warn');
       }
     }
 
@@ -183,12 +385,17 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
       document.getElementById('listInput').value = '';
       document.getElementById('resultOutput').value = '';
       document.getElementById('matchCount').textContent = '0 บรรทัด';
+      document.getElementById('matchCount').classList.remove('green');
       document.getElementById('unmatchedInfo').textContent = '';
+      if (window.toastFx) window.toastFx('🧹 ล้างข้อมูลแล้ว', 'info');
     }
 
     function copyResult(btn) {
       const out = document.getElementById('resultOutput');
       const text = out.value;
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
 
       if (!text) {
         animateCopyButton(btn, '⚠️ ไม่มีข้อมูล', true);
@@ -199,6 +406,7 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
         navigator.clipboard.writeText(text)
           .then(() => {
             animateCopyButton(btn, '✅ คัดลอกแล้ว', false);
+            if (window.confettiFx) window.confettiFx(cx, cy);
           })
           .catch(() => {
             fallbackCopy(out, btn);
@@ -220,6 +428,8 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
       const original = btn.innerHTML;
       btn.innerHTML = label;
       btn.style.opacity = isWarn ? '0.9' : '0.95';
+      if (isWarn && window.toastFx) window.toastFx('⚠️ ยังไม่มีข้อมูลให้คัดลอก', 'warn');
+      if (!isWarn && window.toastFx) window.toastFx('✅ คัดลอกสำเร็จแล้ว', 'success');
 
       setTimeout(() => {
         btn.innerHTML = original;
@@ -230,13 +440,14 @@ Aubrey_Craft202486:Generated$6688852:_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this
     function goTo(path) {
       window.location.href = path;
     }
-    document.addEventListener('keydown', (e) => {
-  if (e.key === 'F12' || 
-     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
-    e.preventDefault();
-  }
-});
 
+    // ---------- ล็อก F12 ----------
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
+        e.preventDefault();
+      }
+    });
   </script>
 
 </body>
