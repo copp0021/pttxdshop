@@ -1,55 +1,290 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
-    <meta charset="UTF-8">
-    <title>PTTXD | Index</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="https://img5.pic.in.th/file/secure-sv1/1000003790-removebg-preview.png" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PM Stock · Combo Toolkit</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="pm.png" />
 </head>
-
 <body>
-    <div class="shell">
-        <div class="badge"> <span class="badge-dot"></span> <span>PTTXD SHOP</span> </div>
-        <div class="card">
-            <div class="card-inner">
-                <div class="header">
-                    <div class="title-wrap">
-                        <h1> เลือกเครื่องมือจัดการ <span style="color:#38bdf8;">user:pass</span> / <span
-                                style="color:#a855f7;">cookies</span> <span class="title-pill">ศูนย์รวมหน้าแยก /
-                                ค้นหา</span> </h1>
-                        <p class="subtitle"> เลือกหน้าใช้งานที่ต้องการ: แยก <strong>user:pass:cookis →
-                                user:pass</strong> หรือ ค้นหา <strong>user:pass:cookis</strong> จาก
-                            <strong>user:pass</strong> ที่มีอยู่ </p>
-                    </div>
-                    <div class="stat-chip"> <span class="stat-dot"></span> <span>v1 · local tools only</span> </div>
-                </div>
-                <div class="grid"> <!-- Card 1: แยก user:pass:cookies -->
-                    <div class="tool-card" onclick="goTo('แยก_user_pass_cookies.html')">
-                        <div class="tool-title"> <span class="icon">🧩</span> <span>แยก user:pass:cookis →
-                                user:pass</span> <span class="tool-badge">Splitter</span> </div>
-                        <div class="tool-desc"> วางลิสต์ <strong>user:pass:cookis</strong> ยาว ๆ
-                            แล้วให้ระบบช่วยแยกเอาเฉพาะ <strong>user:pass</strong> ออกมาเป็นชุดสะอาด ๆ
-                            พร้อมก๊อปไปใช้ต่อได้ทันที </div>
-                        <div class="tool-footer"> <span class="pill-soft">เหมาะกับจัดระเบียบ combo เดิม</span> <button
-                                class="enter-btn" type="button"> <span>เข้าใช้งาน</span> <span
-                                    class="enter-btn-icon">➜</span> </button> </div>
-                    </div> <!-- Card 2: ค้นหา cookies -->
-                    <div class="tool-card" onclick="goTo('ค้าหาcookies.html')">
-                        <div class="tool-title"> <span class="icon">🔍</span> <span>ค้นหา user:pass:cookis จาก
-                                user:pass</span> <span class="tool-badge">Lookup</span> </div>
-                        <div class="tool-desc"> ใส่ชุด <strong>user:pass</strong> ที่ต้องการ แล้วให้ระบบไล่ค้นจากลิสต์
-                            <strong>user:pass:cookis</strong> ขนาดใหญ่ ดึงเฉพาะบรรทัดที่ตรงกลับมาให้ </div>
-                        <div class="tool-footer"> <span class="pill-soft">เหมาะกับดึง cookies เฉพาะไอดี</span> <button
-                                class="enter-btn" type="button"> <span>เข้าใช้งาน</span> <span
-                                    class="enter-btn-icon">➜</span> </button> </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script> function goTo(path) { window.location.href = path; } document.addEventListener('keydown', (e) => { if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) { e.preventDefault(); } }); </script>
-</body>
 
+  <!-- ==================== ฉากหลังนีออน ==================== -->
+  <div class="bg-scene">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="grid-plane"></div>
+    <div class="vignette"></div>
+    <canvas id="stars"></canvas>
+  </div>
+
+  <div class="shell">
+
+    <!-- แถบแบรนด์ -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-gem"><img src="pm.png" alt="PM Stock" /></div>
+        <div class="brand-copy">
+          <span class="brand-name">PM&nbsp;<b>Stock</b></span>
+          <span class="brand-sub">Combo Toolkit · Local Edition</span>
+        </div>
+      </div>
+      <div class="status-chip"><i class="pulse"></i> v1 · Tools ทำงานบนเครื่องนี้</div>
+    </header>
+
+    <!-- ฮีโร่ -->
+    <section class="hero">
+      <div class="hero-kicker">✦ เลือกเครื่องมือที่ต้องการ ✦</div>
+      <h1 class="hero-title">
+        จัดการ <span class="txt-user">user:pass</span><span class="hero-sep">/</span><span class="txt-cookie">cookies</span>
+        <span class="hero-flare">ให้สุดเทพ</span>
+      </h1>
+      <p class="hero-sub">
+        แยก <strong>user:pass:cookies → user:pass</strong> หรือ
+        ค้นหา <strong>user:pass:cookies</strong> จาก <strong>user:pass</strong> ที่มีอยู่
+      </p>
+    </section>
+
+    <!-- การ์ดเครื่องมือ -->
+    <section class="grid">
+
+      <article class="tool-card" onclick="goTo('แยก_user_pass_cookies.html')">
+        <div class="t-glow"></div>
+        <div class="t-head">
+          <div class="icon-tile">🧩</div>
+          <div class="t-badge">Splitter</div>
+        </div>
+        <h2 class="t-title">แยก user:pass:cookies → user:pass</h2>
+        <p class="t-desc">
+          วางลิสต์ <strong>user:pass:cookies</strong> ยาว ๆ ระบบจะแยก
+          <strong>user:pass</strong>, <strong>Cookie</strong> และแบบเต็มออกมาเป็นชุดสะอาด
+        </p>
+        <div class="t-foot">
+          <span class="pill-soft">เหมาะกับจัดระเบียบ combo เดิม</span>
+          <button class="btn-glow" type="button"><span>เข้าใช้งาน</span><em>➜</em></button>
+        </div>
+      </article>
+
+      <article class="tool-card lookup" onclick="goTo('ค้าหาcookies.html')">
+        <div class="t-glow"></div>
+        <div class="t-head">
+          <div class="icon-tile">🔍</div>
+          <div class="t-badge">Lookup</div>
+        </div>
+        <h2 class="t-title">ค้นหา user:pass:cookies จาก user:pass</h2>
+        <p class="t-desc">
+          ใส่ชุด <strong>user:pass</strong> ไล่ค้นจากลิสต์ <strong>user:pass:cookies</strong>
+          ขนาดใหญ่ ดึงเฉพาะบรรทัดที่ตรงกลับมาให้
+        </p>
+        <div class="t-foot">
+          <span class="pill-soft">เหมาะกับดึง cookies เฉพาะไอดี</span>
+          <button class="btn-glow" type="button"><span>เข้าใช้งาน</span><em>➜</em></button>
+        </div>
+      </article>
+
+    </section>
+
+    <footer class="foot">Power up your combos · <span class="foot-grad">PM STOCK</span> ✦</footer>
+
+  </div>
+
+  <script>
+    // ============================================================
+    // ลูกเล่น & เอฟเฟกต์ (ใช้ร่วมทุกหน้า)
+    // ============================================================
+    (function () {
+      var TAIL = ['#4dd8ff', '#ff5fd2', '#ffd166', '#a78bfa', '#34d399'];
+
+      function toastFx(msg, type) {
+        var wrap = document.getElementById('toast');
+        if (!wrap) {
+          wrap = document.createElement('div');
+          wrap.id = 'toast';
+          document.body.appendChild(wrap);
+        }
+        var t = document.createElement('div');
+        t.className = 'toast-item ' + (type || 'info');
+        t.textContent = msg;
+        wrap.appendChild(t);
+        setTimeout(function () {
+          t.classList.add('out');
+          setTimeout(function () { t.remove(); }, 350);
+        }, 1900);
+      }
+
+      function confettiFx(x, y) {
+        var h = document.createElement('div');
+        h.className = 'confetti-wrap';
+        h.style.cssText = 'left:' + x + 'px;top:' + y + 'px';
+        document.body.appendChild(h);
+        for (var i = 0; i < 28; i++) {
+          var p = document.createElement('i');
+          var a = Math.random() * Math.PI * 2;
+          var dist = Math.random() * 100 + 40;
+          var size = Math.random() * 6 + 4;
+          p.style.cssText =
+            '--dx:' + (Math.cos(a) * dist).toFixed(1) + 'px;' +
+            '--dy:' + (Math.sin(a) * dist + 70).toFixed(1) + 'px;' +
+            'background:' + TAIL[(Math.random() * TAIL.length) | 0] + ';' +
+            'width:' + size.toFixed(1) + 'px;height:' + size.toFixed(1) + 'px;';
+          h.appendChild(p);
+        }
+        setTimeout(function () { h.remove(); }, 950);
+      }
+
+      window.toastFx = toastFx;
+      window.confettiFx = confettiFx;
+
+      // ระลอกคลื่นตอนคลิกปุ่ม/การ์ด
+      document.addEventListener('pointerdown', function (e) {
+        var el = e.target.closest('.btn, .tool-card, .copy-btn, .small-btn, .nav-pill, .icon-tile');
+        if (!el) return;
+        if (!getComputedStyle(el).position) {};
+        var style = getComputedStyle(el);
+        if (style.position === 'static') el.style.position = 'relative';
+        var r = el.getBoundingClientRect();
+        var d = Math.max(r.width, r.height) * 2;
+        var span = document.createElement('span');
+        span.className = 'ripple';
+        span.style.cssText =
+          'width:' + d + 'px;height:' + d + 'px;' +
+          'left:' + (e.clientX - r.left - d / 2) + 'px;' +
+          'top:' + (e.clientY - r.top - d / 2) + 'px;';
+        el.appendChild(span);
+        setTimeout(function () { span.remove(); }, 650);
+      });
+
+      // ประกายไฟตามเมาส์
+      var lastSpark = 0;
+      document.addEventListener('pointermove', function (e) {
+        var now = performance.now();
+        if (now - lastSpark < 85) return;
+        lastSpark = now;
+        var s = document.createElement('i');
+        s.className = 'spark';
+        s.style.cssText = 'left:' + e.clientX + 'px;top:' + e.clientY + 'px;';
+        document.body.appendChild(s);
+        setTimeout(function () { s.remove(); }, 650);
+      });
+
+      // ฝุ่นเรืองแสงลอยขึ้น
+      var scene = document.querySelector('.bg-scene');
+      if (scene) {
+        var dust = document.createElement('div');
+        dust.className = 'dust';
+        scene.appendChild(dust);
+        for (var i = 0; i < 26; i++) {
+          var d = document.createElement('i');
+          var c = TAIL[(Math.random() * TAIL.length) | 0];
+          var s = (Math.random() * 6 + 3).toFixed(1);
+          d.style.cssText =
+            'left:' + (Math.random() * 100).toFixed(2) + '%;' +
+            'width:' + s + 'px;height:' + s + 'px;' +
+            'background:' + c + ';box-shadow:0 0 10px ' + c + ';' +
+            'animation-duration:' + (Math.random() * 8 + 6).toFixed(1) + 's;' +
+            'animation-delay:' + (-Math.random() * 10).toFixed(1) + 's;';
+          dust.appendChild(d);
+        }
+      }
+    })();
+
+    // ============================================================
+    // ท้องฟ้าดาวกะพริบ + ดาวตก
+    // ============================================================
+    (function () {
+      var cv = document.getElementById('stars');
+      if (!cv || !cv.getContext) return;
+      var ctx = cv.getContext('2d');
+      var COLORS = ['#7ce8ff', '#ffd1f7', '#ffffff', '#ffe9a8', '#c8b6ff'];
+      var W, H, stars = [], shooters = [], shootTimer = 0;
+
+      function hexToRgba(hex, a) {
+        var n = parseInt(hex.slice(1), 16);
+        return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+      }
+      function resize() {
+        W = cv.width = window.innerWidth;
+        H = cv.height = window.innerHeight;
+        stars = [];
+        for (var i = 0, n = Math.max(80, Math.min(180, window.innerWidth / 8)); i < n; i++) {
+          stars.push({
+            x: Math.random() * W, y: Math.random() * H,
+            r: Math.random() * 1.5 + 0.4,
+            a: Math.random() * Math.PI * 2,
+            s: Math.random() * 0.03 + 0.006,
+            c: COLORS[(Math.random() * COLORS.length) | 0]
+          });
+        }
+      }
+      function spawnShooter() {
+        var x = Math.random() * W * 0.6 + W * 0.15;
+        var y = Math.random() * H * 0.35;
+        var v = 13 + Math.random() * 9;
+        shooters.push({ x: x, y: y, vx: v, vy: v * 0.55, life: 1 });
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      (function loop() {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < stars.length; i++) {
+          var st = stars[i];
+          st.a += st.s;
+          var o = (Math.sin(st.a) + 1) / 2 * 0.9;
+          ctx.beginPath();
+          ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+          ctx.fillStyle = hexToRgba(st.c, o);
+          ctx.fill();
+        }
+        shootTimer++;
+        if (shootTimer > 320 && Math.random() < 0.65) { shootTimer = 0; spawnShooter(); }
+        for (var j = shooters.length - 1; j >= 0; j--) {
+          var sh = shooters[j];
+          sh.x += sh.vx;
+          sh.y += sh.vy;
+          sh.life -= 0.014;
+          if (sh.life <= 0 || sh.x > W + 80 || sh.y > H + 80) { shooters.splice(j, 1); continue; }
+          var len = 14;
+          var g = ctx.createLinearGradient(sh.x, sh.y, sh.x - sh.vx * len / 12, sh.y - sh.vy * len / 12);
+          g.addColorStop(0, 'rgba(255,255,255,' + sh.life + ')');
+          g.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.strokeStyle = g;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(sh.x, sh.y);
+          ctx.lineTo(sh.x - sh.vx * len / 12, sh.y - sh.vy * len / 12);
+          ctx.stroke();
+        }
+        requestAnimationFrame(loop);
+      })();
+    })();
+
+    // ---------- แสงเลื่อนตามเมาส์ ----------
+    document.querySelectorAll('.tool-card').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+
+    // ---------- ฉลองตอนคลิกการ์ด ----------
+    document.querySelectorAll('.tool-card').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        var r = card.getBoundingClientRect();
+        if (window.confettiFx) window.confettiFx(r.left + r.width / 2, r.top + r.height / 2);
+      });
+    });
+
+    // ---------- ลิงก์ ----------
+    function goTo(path) { window.location.href = path; }
+
+    // ---------- ล็อก F12 ----------
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
 </html>
