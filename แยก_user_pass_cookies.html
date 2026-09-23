@@ -2,102 +2,293 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>PTTXD SHOP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PM Stock · Splitter</title>
   <link rel="stylesheet" href="cookies.css">
-   <link rel="icon" type="image/png" sizes="16x16" href="https://img5.pic.in.th/file/secure-sv1/1000003790-removebg-preview.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="pm.png" />
 </head>
 <body>
+
+  <!-- ==================== ฉากหลังนีออน ==================== -->
+  <div class="bg-scene">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="grid-plane"></div>
+    <div class="vignette"></div>
+    <canvas id="stars"></canvas>
+  </div>
+
   <div class="shell">
+
+    <!-- แถวบน -->
     <div class="top-row">
-      <div class="badge">
-        <span class="badge-dot"></span>
-        <span>PTTXD SHOP · SPLITTER</span>
+      <div class="topbar">
+        <div class="logo-gem"><img src="pm.png" alt="PM Stock" /></div>
+        <div class="brand-copy">
+          <span class="brand-name">PM&nbsp;<b>Stock</b>&nbsp;·&nbsp;SPLITTER</span>
+          <span class="brand-sub">ผู้ช่วยแยก combo ระดับโปร</span>
+        </div>
       </div>
 
-      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-        <div class="stat-chip">
-          <span class="stat-dot"></span>
-          <span><span id="lineCount">0</span> LINES</span>
+      <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <div class="status-chip">
+          <i class="status-dot"></i>
+          <span><span class="stat-num" id="lineCount">0</span>&nbsp;LINES</span>
         </div>
-        <!-- ปุ่มกลับหน้าแรก -->
-        <button class="btn btn-secondary" onclick="goHome()">
+        <button class="btn btn-ghost" onclick="goHome()">
           <span class="btn-icon">←</span>
           <span>กลับหน้าแรก</span>
         </button>
       </div>
     </div>
 
+    <!-- การ์ดหลัก -->
     <div class="card">
       <div class="card-inner">
+
         <div class="header">
           <div class="title-wrap">
-            <h1>
-              แยก <span class="highlight">username:password:cookie</span>
-            </h1>
+            <h1>แยก <span class="highlight">username:password:cookie</span></h1>
             <p class="subtitle">
-              วางคอมโบรูปแบบ <strong>username:password:cookie</strong> ด้านล่าง ระบบจะช่วยแยกเป็น
-              <strong>username:password</strong>, เฉพาะ <strong>cookie</strong> และแบบเต็มกลับมาให้
+              วางคอมโบรูปแบบ <strong>username:password:cookie</strong> ด้านล่าง
+              ระบบจะช่วยแยกเป็น <strong>username:password</strong>, เฉพาะ <strong>cookie</strong>
+              และแบบเต็มกลับมาให้
             </p>
           </div>
         </div>
 
-        <label for="input" class="section-label">Input</label>
+        <label for="input" class="section-label">⚡ Input</label>
         <textarea id="input" placeholder="ใส่ข้อมูลทีละบรรทัด: username:password:cookie"></textarea>
 
         <div class="buttons">
-          <button class="btn btn-primary" id="splitBtn">
+          <button class="btn btn-glow" id="splitBtn" type="button">
             <span class="btn-icon">✨</span>
             <span>แยกข้อมูล</span>
           </button>
-          <button class="btn btn-secondary" id="clearBtn">
+          <button class="btn btn-ghost" id="clearBtn" type="button">
             <span class="btn-icon">🧹</span>
             <span>ล้างทั้งหมด</span>
           </button>
         </div>
 
         <div class="columns">
-          <!-- Username : Password -->
-          <div class="card sub-card">
+          <div class="sub-card">
             <div class="card-header">
-              <span>Username : Password</span>
-              <button class="copy-btn" data-copy="up">คัดลอก</button>
+              <span class="tag"><i></i>Username : Password</span>
+              <button class="copy-btn" data-copy="up" type="button">📋 คัดลอก</button>
             </div>
             <textarea id="outUP" readonly></textarea>
           </div>
 
-          <!-- Cookie -->
-          <div class="card sub-card">
+          <div class="sub-card cookie">
             <div class="card-header">
-              <span>Cookie</span>
-              <button class="copy-btn" data-copy="cookie">คัดลอก</button>
+              <span class="tag"><i></i>Cookie</span>
+              <button class="copy-btn" data-copy="cookie" type="button">📋 คัดลอก</button>
             </div>
             <textarea id="outCookie" readonly></textarea>
           </div>
 
-          <!-- Username : Password : Cookie -->
-          <div class="card sub-card">
+          <div class="sub-card full">
             <div class="card-header">
-              <span>Username : Password : Cookie</span>
-              <button class="copy-btn" data-copy="all">คัดลอก</button>
+              <span class="tag"><i></i>Username : Password : Cookie</span>
+              <button class="copy-btn" data-copy="all" type="button">📋 คัดลอก</button>
             </div>
             <textarea id="outAll" readonly></textarea>
           </div>
         </div>
 
-        <!-- เครดิต PTTXDSHOP -->
-        <div style="margin-top:10px; font-size:11px; color:#9ca3af; text-align:right;">
-          Powered by <strong>PTTXDSHOP</strong>
+        <div class="credit">
+          Powered by <strong>PM Stock</strong>
         </div>
+
       </div>
     </div>
   </div>
 
   <script>
+    // ============================================================
+    // ลูกเล่น & เอฟเฟกต์ (ใช้ร่วมทุกหน้า)
+    // ============================================================
+    (function () {
+      var TAIL = ['#4dd8ff', '#ff5fd2', '#ffd166', '#a78bfa', '#34d399'];
+
+      function toastFx(msg, type) {
+        var wrap = document.getElementById('toast');
+        if (!wrap) {
+          wrap = document.createElement('div');
+          wrap.id = 'toast';
+          document.body.appendChild(wrap);
+        }
+        var t = document.createElement('div');
+        t.className = 'toast-item ' + (type || 'info');
+        t.textContent = msg;
+        wrap.appendChild(t);
+        setTimeout(function () {
+          t.classList.add('out');
+          setTimeout(function () { t.remove(); }, 350);
+        }, 1900);
+      }
+
+      function confettiFx(x, y) {
+        var h = document.createElement('div');
+        h.className = 'confetti-wrap';
+        h.style.cssText = 'left:' + x + 'px;top:' + y + 'px;';
+        document.body.appendChild(h);
+        for (var i = 0; i < 28; i++) {
+          var p = document.createElement('i');
+          var a = Math.random() * Math.PI * 2;
+          var dist = Math.random() * 100 + 40;
+          var size = Math.random() * 6 + 4;
+          p.style.cssText =
+            '--dx:' + (Math.cos(a) * dist).toFixed(1) + 'px;' +
+            '--dy:' + (Math.sin(a) * dist + 70).toFixed(1) + 'px;' +
+            'background:' + TAIL[(Math.random() * TAIL.length) | 0] + ';' +
+            'width:' + size.toFixed(1) + 'px;height:' + size.toFixed(1) + 'px;';
+          h.appendChild(p);
+        }
+        setTimeout(function () { h.remove(); }, 950);
+      }
+
+      window.toastFx = toastFx;
+      window.confettiFx = confettiFx;
+
+      // ระลอกคลื่นตอนคลิก
+      document.addEventListener('pointerdown', function (e) {
+        var el = e.target.closest('.btn, .copy-btn, .small-btn, .nav-pill, .icon-tile');
+        if (!el) return;
+        var style = getComputedStyle(el);
+        if (style.position === 'static') el.style.position = 'relative';
+        var r = el.getBoundingClientRect();
+        var d = Math.max(r.width, r.height) * 2;
+        var span = document.createElement('span');
+        span.className = 'ripple';
+        span.style.cssText =
+          'width:' + d + 'px;height:' + d + 'px;' +
+          'left:' + (e.clientX - r.left - d / 2) + 'px;' +
+          'top:' + (e.clientY - r.top - d / 2) + 'px;';
+        el.appendChild(span);
+        setTimeout(function () { span.remove(); }, 650);
+      });
+
+      // ประกายไฟตามเมาส์
+      var lastSpark = 0;
+      document.addEventListener('pointermove', function (e) {
+        var now = performance.now();
+        if (now - lastSpark < 85) return;
+        lastSpark = now;
+        var s = document.createElement('i');
+        s.className = 'spark';
+        s.style.cssText = 'left:' + e.clientX + 'px;top:' + e.clientY + 'px;';
+        document.body.appendChild(s);
+        setTimeout(function () { s.remove(); }, 650);
+      });
+
+      // ฝุ่นเรืองแสงลอยขึ้น
+      var scene = document.querySelector('.bg-scene');
+      if (scene) {
+        var dust = document.createElement('div');
+        dust.className = 'dust';
+        scene.appendChild(dust);
+        for (var i = 0; i < 26; i++) {
+          var d = document.createElement('i');
+          var c = TAIL[(Math.random() * TAIL.length) | 0];
+          var s = (Math.random() * 6 + 3).toFixed(1);
+          d.style.cssText =
+            'left:' + (Math.random() * 100).toFixed(2) + '%;' +
+            'width:' + s + 'px;height:' + s + 'px;' +
+            'background:' + c + ';box-shadow:0 0 10px ' + c + ';' +
+            'animation-duration:' + (Math.random() * 8 + 6).toFixed(1) + 's;' +
+            'animation-delay:' + (-Math.random() * 10).toFixed(1) + 's;';
+          dust.appendChild(d);
+        }
+      }
+    })();
+
+    // ============================================================
+    // ท้องฟ้าดาวกะพริบ + ดาวตก
+    // ============================================================
+    (function () {
+      var cv = document.getElementById('stars');
+      if (!cv || !cv.getContext) return;
+      var ctx = cv.getContext('2d');
+      var COLORS = ['#7ce8ff', '#ffd1f7', '#ffffff', '#ffe9a8', '#c8b6ff'];
+      var W, H, stars = [], shooters = [], shootTimer = 0;
+
+      function hexToRgba(hex, a) {
+        var n = parseInt(hex.slice(1), 16);
+        return 'rgba(' + ((n >> 16) & 255) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')';
+      }
+      function resize() {
+        W = cv.width = window.innerWidth;
+        H = cv.height = window.innerHeight;
+        stars = [];
+        for (var i = 0, n = Math.max(80, Math.min(180, window.innerWidth / 8)); i < n; i++) {
+          stars.push({
+            x: Math.random() * W, y: Math.random() * H,
+            r: Math.random() * 1.5 + 0.4,
+            a: Math.random() * Math.PI * 2,
+            s: Math.random() * 0.03 + 0.006,
+            c: COLORS[(Math.random() * COLORS.length) | 0]
+          });
+        }
+      }
+      function spawnShooter() {
+        var x = Math.random() * W * 0.6 + W * 0.15;
+        var y = Math.random() * H * 0.35;
+        var v = 13 + Math.random() * 9;
+        shooters.push({ x: x, y: y, vx: v, vy: v * 0.55, life: 1 });
+      }
+      resize();
+      window.addEventListener('resize', resize);
+      (function loop() {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < stars.length; i++) {
+          var st = stars[i];
+          st.a += st.s;
+          var o = (Math.sin(st.a) + 1) / 2 * 0.9;
+          ctx.beginPath();
+          ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+          ctx.fillStyle = hexToRgba(st.c, o);
+          ctx.fill();
+        }
+        shootTimer++;
+        if (shootTimer > 320 && Math.random() < 0.65) { shootTimer = 0; spawnShooter(); }
+        for (var j = shooters.length - 1; j >= 0; j--) {
+          var sh = shooters[j];
+          sh.x += sh.vx;
+          sh.y += sh.vy;
+          sh.life -= 0.014;
+          if (sh.life <= 0 || sh.x > W + 80 || sh.y > H + 80) { shooters.splice(j, 1); continue; }
+          var len = 14;
+          var g = ctx.createLinearGradient(sh.x, sh.y, sh.x - sh.vx * len / 12, sh.y - sh.vy * len / 12);
+          g.addColorStop(0, 'rgba(255,255,255,' + sh.life + ')');
+          g.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.strokeStyle = g;
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(sh.x, sh.y);
+          ctx.lineTo(sh.x - sh.vx * len / 12, sh.y - sh.vy * len / 12);
+          ctx.stroke();
+        }
+        requestAnimationFrame(loop);
+      })();
+    })();
+
+    // ============================================================
+    // ตัวแยก combo
+    // ============================================================
     const input = document.getElementById("input");
     const outUP = document.getElementById("outUP");
     const outCookie = document.getElementById("outCookie");
     const outAll = document.getElementById("outAll");
     const lineCount = document.getElementById("lineCount");
+
+    function flashCount() {
+      lineCount.classList.remove('pop');
+      void lineCount.offsetWidth;
+      lineCount.classList.add('pop');
+    }
 
     function splitText() {
       const raw = input.value.trim();
@@ -121,14 +312,12 @@
         const parts = line.split(":");
         const username = parts[0] || "";
         const password = parts[1] || "";
-        const cookie = parts.slice(2).join(":"); // รองรับ cookie มี ':' ข้างใน
+        const cookie = parts.slice(2).join(":");
 
         if (username || password || cookie) {
           const upLine = [username, password].filter(Boolean).join(":");
           up.push(upLine);
-
           cookies.push(cookie);
-
           const allLine = [username, password, cookie].filter(Boolean).join(":");
           all.push(allLine);
         }
@@ -137,43 +326,66 @@
       outUP.value = up.join("\n");
       outCookie.value = cookies.join("\n");
       outAll.value = all.join("\n");
-      lineCount.textContent = all.length.toString();
+      const n = all.length;
+      lineCount.textContent = n.toString();
+      if (n > 0) flashCount();
+      return n;
     }
 
-    document.getElementById("splitBtn").addEventListener("click", splitText);
+    document.getElementById("splitBtn").addEventListener("click", (e) => {
+      const n = splitText();
+      if (window.confettiFx) window.confettiFx(e.clientX, e.clientY);
+      if (n > 0 && window.toastFx) window.toastFx('✨ แยกสำเร็จ ' + n + ' บรรทัด!', 'success');
+      if (n === 0 && window.toastFx) window.toastFx('⚠️ ยังไม่มีข้อมูลให้แยก', 'warn');
+    });
+
     input.addEventListener("input", splitText);
 
     document.getElementById("clearBtn").addEventListener("click", () => {
       input.value = "";
+      lineCount.textContent = "0";
       splitText();
+      if (window.toastFx) window.toastFx('🧹 ล้างข้อมูลแล้ว', 'info');
     });
 
     document.querySelectorAll(".copy-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", (e) => {
         let target;
-        if (btn.dataset.copy === "up") target = outUP;
-        else if (btn.dataset.copy === "cookie") target = outCookie;
-        else target = outAll;
+        let label = "";
+        if (btn.dataset.copy === "up") { target = outUP; label = "username:password"; }
+        else if (btn.dataset.copy === "cookie") { target = outCookie; label = "cookie"; }
+        else { target = outAll; label = "ทั้งชุด"; }
+
+        if (!target.value.trim()) {
+          if (window.toastFx) window.toastFx('⚠️ ยังไม่มีข้อมูลให้คัดลอก', 'warn');
+          return;
+        }
 
         target.select();
+        target.setSelectionRange(0, 999999);
         document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+
         const original = btn.textContent;
-        btn.textContent = "คัดลอกแล้ว";
+        btn.textContent = "✅ คัดลอกแล้ว";
         setTimeout(() => (btn.textContent = original), 900);
+
+        if (window.toastFx) window.toastFx('✅ คัดลอก ' + label + ' แล้ว', 'success');
+        if (window.confettiFx) window.confettiFx(e.clientX, e.clientY);
       });
     });
 
-    // ฟังก์ชันกลับหน้าแรก
     function goHome() {
-      window.location.href = "index.html"; // ถ้าชื่อไฟล์หน้าแรกไม่ใช่ index.html ก็เปลี่ยนตรงนี้
+      window.location.href = "index.html";
     }
-    document.addEventListener('keydown', (e) => {
-  if (e.key === 'F12' || 
-     (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
-    e.preventDefault();
-  }
-});
 
+    // ---------- ล็อก F12 ----------
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase()))) {
+        e.preventDefault();
+      }
+    });
   </script>
 </body>
 </html>
